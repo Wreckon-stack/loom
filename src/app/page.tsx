@@ -15,12 +15,7 @@ import {
   Zap,
 } from "lucide-react";
 import LoomLogo from "@/components/LoomLogo";
-
-const TICKER_ITEMS = [
-  "[BTC] $67,421 +4.2%",
-  "[ETH] $3,892 +2.8%",
-  "[SOL] $178.50 +12.1%",
-];
+import { PriceTicker, PriceCards } from "@/components/LivePrices";
 
 export default async function Home() {
   // Fetch real data from the database
@@ -49,11 +44,7 @@ export default async function Home() {
       {/* Ticker strip */}
       <div className="border-b border-border overflow-hidden py-2.5 bg-card/50">
         <div className="animate-ticker flex whitespace-nowrap">
-          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-            <span key={i} className="mx-6 text-[11px] font-mono text-muted tracking-wide">
-              {item}
-            </span>
-          ))}
+          <PriceTicker />
         </div>
       </div>
 
@@ -158,31 +149,7 @@ export default async function Home() {
               </div>
               <span className="text-[10px] text-muted uppercase tracking-wider">24h</span>
             </div>
-            <div className="space-y-3">
-              {[
-                { symbol: "BTC", name: "Bitcoin", price: "$67,421", change: "+4.2%", up: true },
-                { symbol: "ETH", name: "Ethereum", price: "$3,892", change: "+2.8%", up: true },
-                { symbol: "SOL", name: "Solana", price: "$178.50", change: "+12.1%", up: true },
-              ].map((token) => (
-                <div key={token.symbol} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-lg bg-surface-glass flex items-center justify-center text-[10px] font-bold text-muted-light">
-                      {token.symbol.slice(0, 2)}
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-foreground">{token.symbol}</p>
-                      <p className="text-[10px] text-muted">{token.name}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xs font-medium text-foreground font-mono">{token.price}</p>
-                    <p className={`text-[10px] font-mono ${token.up ? "text-secondary" : "text-danger"}`}>
-                      {token.change}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <PriceCards />
           </div>
 
           {/* Recent Activity */}

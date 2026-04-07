@@ -1,12 +1,7 @@
 "use client";
 
-import { TrendingUp, Flame, ArrowUpRight } from "lucide-react";
-
-const TRENDING_TOKENS = [
-  { name: "Bitcoin", symbol: "BTC", change: "+4.2%", up: true },
-  { name: "Ethereum", symbol: "ETH", change: "+2.8%", up: true },
-  { name: "Solana", symbol: "SOL", change: "+12.1%", up: true },
-];
+import { TrendingUp, Flame, ArrowUpRight, Loader2 } from "lucide-react";
+import { useLivePrices } from "./LivePrices";
 
 const TRENDING_TOPICS = [
   { tag: "#DeFiSummer", posts: 2340 },
@@ -15,10 +10,18 @@ const TRENDING_TOPICS = [
   { tag: "#Airdrop", posts: 980 },
 ];
 
+function formatPrice(price: number) {
+  if (price >= 1000) return `$${price.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+  if (price >= 1) return `$${price.toFixed(2)}`;
+  return `$${price.toFixed(4)}`;
+}
+
 export default function TrendingSidebar() {
+  const { tokens, loading } = useLivePrices();
+
   return (
     <aside className="w-72 space-y-3">
-      {/* Trending tokens */}
+      {/* Live prices */}
       <div className="glass-card p-4">
         <div className="flex items-center gap-2 mb-3">
           <TrendingUp className="w-3.5 h-3.5 text-secondary" />
@@ -26,19 +29,33 @@ export default function TrendingSidebar() {
           <span className="text-[10px] text-muted ml-auto uppercase tracking-wider">24h</span>
         </div>
         <div className="space-y-2.5">
-          {TRENDING_TOKENS.map((token) => (
-            <div key={token.symbol} className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-md bg-surface-glass flex items-center justify-center text-[9px] font-bold text-muted-light">
-                  {token.symbol.slice(0, 2)}
-                </div>
-                <span className="text-xs text-foreground">{token.symbol}</span>
-              </div>
-              <span className={`text-[10px] font-mono ${token.up ? "text-secondary" : "text-danger"}`}>
-                {token.change}
-              </span>
+          {loading ? (
+            <div className="flex justify-center py-2">
+              <Loader2 className="w-4 h-4 text-muted animate-spin" />
             </div>
-          ))}
+          ) : (
+            tokens.map((token) => (
+              <div key={token.symbol} className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-md bg-surface-glass flex items-center justify-center text-[9px] font-bold text-muted-light">
+                    {token.symbol.slice(0, 2)}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-xs text-foreground">{token.symbol}</span>
+                    <span className="text-[10px] text-muted">{formatPrice(token.price)}</span>
+                  </div>
+                </div>
+                <span
+                  className={`text-[10px] font-mono ${
+                    token.change >= 0 ? "text-secondary" : "text-danger"
+                  }`}
+                >
+                  {token.change >= 0 ? "+" : ""}
+                  {token.change.toFixed(1)}%
+                </span>
+              </div>
+            ))
+          )}
         </div>
       </div>
 
