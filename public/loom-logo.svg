@@ -1,0 +1,21 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Woven Celtic knot — 4 interlocking loops forming a Loom pattern -->
+  <g stroke="white" stroke-width="12" stroke-linecap="round" fill="none">
+    <!-- Top-left loop -->
+    <path d="M70 30 C40 30, 30 50, 30 70 C30 85, 40 95, 55 90 C65 86, 75 78, 85 70"/>
+    <!-- Top-right loop -->
+    <path d="M130 30 C160 30, 170 50, 170 70 C170 85, 160 95, 145 90 C135 86, 125 78, 115 70"/>
+    <!-- Bottom-left loop -->
+    <path d="M70 170 C40 170, 30 150, 30 130 C30 115, 40 105, 55 110 C65 114, 75 122, 85 130"/>
+    <!-- Bottom-right loop -->
+    <path d="M130 170 C160 170, 170 150, 170 130 C170 115, 160 105, 145 110 C135 114, 125 122, 115 130"/>
+    <!-- Cross strands connecting the loops -->
+    <path d="M85 70 L115 130"/>
+    <path d="M115 70 L85 130"/>
+    <!-- Horizontal connecting strands -->
+    <path d="M55 90 C70 98, 80 100, 85 100"/>
+    <path d="M145 90 C130 98, 120 100, 115 100"/>
+    <path d="M55 110 C70 102, 80 100, 85 100"/>
+    <path d="M145 110 C130 102, 120 100, 115 100"/>
+  </g>
+</svg>
